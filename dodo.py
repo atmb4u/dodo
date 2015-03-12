@@ -72,9 +72,13 @@ def dodo_unload(final_do_base):
 def dodo_init(args):
     file_name = args.file or DODO_FILE
     try:
-        file_inst = open(file_name, "w")
-        file_inst.close()
-        print "Successfully initialized DoDo"
+        try:
+            open(file_name, "r")
+            print "DoDo already exist."
+        except IOError:
+            file_inst = open(file_name, "w")
+            file_inst.close()
+            print "Successfully initialized DoDo"
     except IOError:
         print "Cannot create file in the following location: %s" % file_name
 
@@ -84,7 +88,7 @@ def dodo_write(content, mode="a"):
     file_inst = open(DODO_FILE, mode)
     file_inst.write(content)
     file_inst.close()
-    print "Dodo updated."
+    print "DoDo updated."
 
 
 def dodo_change_status(args, mod_do_base, status):
@@ -94,6 +98,12 @@ def dodo_change_status(args, mod_do_base, status):
     do_entry = mod_do_base.get(args.id)
     if do_entry:
         do_entry["status"] = status
+        if args.desc:
+            do_entry["description"] = args.desc
+        if args.user:
+            do_entry["user"] = args.user
+        if args.time:
+            do_entry["time"] = args.time
     else:
         if not args.desc:
             print "Description (-d) can't be empty"
@@ -205,4 +215,4 @@ if __name__ == "__main__":
         dodo_init(arguments)
     else:
         do_base = dodo_load(arguments)
-    dodo_switch(arguments)
+        dodo_switch(arguments)

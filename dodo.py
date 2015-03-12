@@ -6,7 +6,7 @@ import os
 
 
 DODO_FILE = os.path.join(os.getcwd(), 'DODO')
-VERSION = "0.93"
+VERSION = "0.94"
 
 
 class TerminalColors(object):
@@ -180,7 +180,8 @@ def dodo_list():
         print "%s%s\t[%s]\t\t%s\t(%s)\t\t%s%s" % (color, value["id"], value["status"], value["time"],
                                                   user, value["description"], TerminalColors.END)
     print "%sAvailable Operations: c accept propose reject workon finish remove d\n" \
-          "Available Options: -id -d(description) -u(user) -t(time) -f(file) %s" % (
+          "Available Options: -id -d(description) -u(user) -t(time) -f(file)\n" \
+          "Status: + proposed - rejected * accepted # working . complete%s" % (
               TerminalColors.BOLD, TerminalColors.END)
 
 

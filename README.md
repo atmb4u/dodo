@@ -27,6 +27,8 @@ dodo l
 
 ### Propose a new Task
 ```bash
+dodo c -u atmb4u -d "dodo new version"
+dodo add -u atmb4u -d "dodo new version"
 dodo propose -u atmb4u -d "dodo new version"
 ```
 

@@ -7,7 +7,6 @@ from distutils.command.install_data import install_data
 from distutils.command.install import INSTALL_SCHEMES
 import os
 import sys
-import dodo
 
 
 class OsxInstallData(install_data):
@@ -61,13 +60,12 @@ if root_dir != '':
 def is_not_module(filename):
     return os.path.splitext(filename)[1] not in ['.py', '.pyc', '.pyo']
 
-scripts = ['dodo']
+scripts = ['dodo', 'dodo.py']
 
-version = dodo.VERSION
 
 setup_args = {
-    'name': 'dodo',
-    'version': version,
+    'name': 'dodopie',
+    'version': '0.93',
     'url': 'http://atmb4u.github.io/dodo',
     'description': 'Task Management for Hackers',
     'author': 'Anoop Thomas Mathew',

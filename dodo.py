@@ -1,4 +1,4 @@
-#/usr/bin/python
+#!/usr/bin/env python
 import argparse
 import re
 import time
@@ -6,7 +6,7 @@ import os
 
 
 DODO_FILE = os.path.join(os.getcwd(), 'DODO')
-VERSION = "0.8"
+VERSION = "0.93"
 
 
 class TerminalColors(object):
@@ -29,16 +29,16 @@ class TerminalColors(object):
 def parse_dodo(line):
     if line:
         do_id = re.search("#\d+", line).group()[1:]
-        do_status = re.search(r'\[\W+\]', line).group()[1:-1]
-        do_time = re.search(r'(<.+>)', line)
-        do_description = re.search(r'({.+})', line)
+        do_status = re.search(r'\[\[\W+\]\]', line).group()[2:-2]
+        do_time = re.search(r'(<<.+>>)', line)
+        do_description = re.search(r'({{.+}})', line)
         if do_time:
-            do_time = do_time.group().replace("<", "").replace(">", "")
-        do_user = re.search(r'(\(.+\))', line)
+            do_time = do_time.group().replace("<<", "").replace(">>", "")
+        do_user = re.search(r'(\(\(.+\)\))', line)
         if do_user:
-            do_user = do_user.group().replace("(", "").replace(")", "")
+            do_user = do_user.group().replace("((", "").replace("))", "")
         if do_description:
-            do_description = do_description.group().replace("{", "").replace("}", "")
+            do_description = do_description.group().replace("{{", "").replace("}}", "")
         return {
             "id": do_id,
             "time": do_time,
@@ -64,8 +64,8 @@ def dodo_load(args):
 def dodo_unload(final_do_base):
     content = ""
     for key, value in final_do_base.iteritems():
-        content += "#%s [%s] <%s> (%s) {%s}\n" % (value["id"], value["status"], value["time"],
-                                                  value["user"], value["description"])
+        content += "#%s [[%s]] <<%s>> ((%s)) {{%s}}\n" % (value["id"], value["status"], value["time"],
+                                                          value["user"], value["description"])
     dodo_write(content, "w")
 
 
@@ -206,7 +206,7 @@ if __name__ == "__main__":
                         help="Expected/Completed Date - 11-03-2015")
     parser.add_argument("--id", type=str,
                         help="List all existing dodos")
-    parser.add_argument("--file", type=str,
+    parser.add_argument("-f", "--file", type=str,
                         help="DODO filename")
     arguments = parser.parse_args()
     global do_base

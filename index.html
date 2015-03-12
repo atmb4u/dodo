@@ -3,30 +3,41 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="chrome=1">
-    <title>dodo by atmb4u</title>
-
+    <title>DoDo by atmb4u</title>
     <link rel="stylesheet" href="stylesheets/styles.css">
     <link rel="stylesheet" href="stylesheets/pygment_trac.css">
-    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+    <script src="javascripts/main.js"></script>
     <!--[if lt IE 9]>
-    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+
   </head>
   <body>
-    <div class="wrapper">
+
       <header>
-        <h1>dodo</h1>
-        <p>Task Management for Hackers</p>
-
-        <p class="view"><a href="https://github.com/atmb4u/dodo">View the Project on GitHub <small>atmb4u/dodo</small></a></p>
-
-
-        <ul>
-          <li><a href="https://github.com/atmb4u/dodo/zipball/master">Download <strong>ZIP File</strong></a></li>
-          <li><a href="https://github.com/atmb4u/dodo/tarball/master">Download <strong>TAR Ball</strong></a></li>
-          <li><a href="https://github.com/atmb4u/dodo">View On <strong>GitHub</strong></a></li>
-        </ul>
+        <h1>DoDo</h1>
+        <p>In-repo Task Management for Hackers</p>
       </header>
+
+      <div id="banner">
+        <span id="logo"></span>
+
+        <a href="https://github.com/atmb4u/dodo" class="button fork"><strong>View On GitHub</strong></a>
+        <div class="downloads">
+          <span>Downloads:</span>
+          <ul>
+            <li><a href="https://github.com/atmb4u/dodo/zipball/master" class="button">ZIP</a></li>
+            <li><a href="https://github.com/atmb4u/dodo/tarball/master" class="button">TAR</a></li>
+          </ul>
+        </div>
+      </div><!-- end banner -->
+
+    <div class="wrapper">
+      <nav>
+        <ul></ul>
+      </nav>
       <section>
         <p><img src="https://github.com/atmb4u/dodo/blob/master/logo.png?raw=true" alt="DoDo"></p>
 
@@ -59,7 +70,9 @@ dodo init -f [dodo filename]
 <h3>
 <a id="propose-a-new-task" class="anchor" href="#propose-a-new-task" aria-hidden="true"><span class="octicon octicon-link"></span></a>Propose a new Task</h3>
 
-<div class="highlight highlight-bash"><pre>dodo propose -u atmb4u -d <span class="pl-s1"><span class="pl-pds">"</span>dodo new version<span class="pl-pds">"</span></span></pre></div>
+<div class="highlight highlight-bash"><pre>dodo c -u atmb4u -d <span class="pl-s1"><span class="pl-pds">"</span>dodo new version<span class="pl-pds">"</span></span>
+dodo add -u atmb4u -d <span class="pl-s1"><span class="pl-pds">"</span>dodo new version<span class="pl-pds">"</span></span>
+dodo propose -u atmb4u -d <span class="pl-s1"><span class="pl-pds">"</span>dodo new version<span class="pl-pds">"</span></span></pre></div>
 
 <h3>
 <a id="accept-a-tasks" class="anchor" href="#accept-a-tasks" aria-hidden="true"><span class="octicon octicon-link"></span></a>Accept a Tasks</h3>
@@ -87,11 +100,11 @@ dodo init -f [dodo filename]
 <p>atmb4u [at] gmail [dot] com</p>
       </section>
       <footer>
-        <p>This project is maintained by <a href="https://github.com/atmb4u">atmb4u</a></p>
-        <p><small>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></small></p>
+        <p>Project maintained by <a href="https://github.com/atmb4u">atmb4u</a></p>
+        <p><small>Hosted on GitHub Pages &mdash; Theme by <a href="https://twitter.com/michigangraham">mattgraham</a></small></p>
       </footer>
     </div>
-    <script src="javascripts/scale.fix.js"></script>
+    <!--[if !IE]><script>fixScale(document);</script><![endif]-->
               <script type="text/javascript">
             var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
             document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));

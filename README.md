@@ -3,7 +3,7 @@ DoDo - Task Management for Hackers
 ----------------------------------
 
 Dodo is an easily maintainable task list for version controlled projects and hackers. We can call `dodo`  a ticket tracking inside the repo itself.
-Tasks are called as *DoDo*, and __your goal is to make DoDo's extinct.__
+Tasks are called as *DoDo*, and __your goal is to make DoDos extinct.__
 
 
 ###Getting Started

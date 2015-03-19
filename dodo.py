@@ -6,7 +6,7 @@ import os
 
 
 DODO_FILE = os.path.join(os.getcwd(), 'DODO')
-VERSION = "0.95"
+VERSION = "0.96"
 username = os.path.split(os.path.expanduser('~'))[-1]
 
 

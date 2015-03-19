@@ -12,6 +12,8 @@ In the latest version, username is automatically populated from the system usern
 
 ```python
 pip install dodopie
+# use sudo if you want to install dodo globally
+# sudo pip install dodopie
 ```
 
 ###Initializing

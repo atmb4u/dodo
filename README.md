@@ -81,6 +81,11 @@ dodo finish 1
 dodo finish --id 1 -u atmb4u -d "dodo new version"
 ```
 
+### Remove a Task
+```bash
+dodo remove 1
+```
+
 ## Authors
 atmb4u [at] gmail [dot] com
 

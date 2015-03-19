@@ -5,6 +5,8 @@ DoDo - Task Management for Hackers
 Dodo is an easily maintainable task list for version controlled projects and hackers. We can call `dodo`  a ticket tracking inside the repo itself.
 Tasks are called as *DoDo*, and __your goal is to make DoDo's extinct.__
 
+In the latest version, username is automatically populated from the system username if not passed explicitly. And the usage flow has been stripped down so as to take the ease of use to the next level
+
 
 ###Getting Started
 
@@ -27,6 +29,11 @@ dodo l
 
 ### Propose a new Task
 ```bash
+
+#simple version
+dodo add "This is a new task"
+
+#verbose version
 dodo c -u atmb4u -d "dodo new version"
 dodo add -u atmb4u -d "dodo new version"
 dodo propose -u atmb4u -d "dodo new version"
@@ -34,23 +41,48 @@ dodo propose -u atmb4u -d "dodo new version"
 
 ### Accept a Tasks
 ```bash
+
+#simple version
+dodo accept 2
+
+#verbose version
+
 dodo accept --id 2 -u atmb4u -d "dodo new version"
 ```
 
 ### Reject a proposed Tasks
 ```bash
+
+#simple version
+dodo reject 2
+
+#verbose version
 dodo reject --id 2 -u atmb4u
 ```
 
 ### Work on a new Tasks
 ```bash
+
+#simple version
+dodo workon 2
+
+#verbose version
 dodo workon --id 2 -u atmb4u
 ```
 
 ### Mark a task as Finished
 ```bash
+
+#simple version
+dodo finish 1
+
+# verbose version
+
 dodo finish --id 1 -u atmb4u -d "dodo new version"
 ```
 
 ## Authors
 atmb4u [at] gmail [dot] com
+
+
+Thanks to IanCal, GuyOnTheInterweb, elrac1, iambeard for the **super creative** suggestions in [reddit](http://www.reddit.com/r/coding/comments/2zgie7/dodo_task_management_for_developers/)

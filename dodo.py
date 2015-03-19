@@ -8,7 +8,7 @@ from time import mktime
 
 
 DODO_FILE = os.path.join(os.getcwd(), 'DODO')
-VERSION = "0.96"
+VERSION = "0.97"
 username = os.path.split(os.path.expanduser('~'))[-1]
 
 

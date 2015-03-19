@@ -218,11 +218,12 @@ if __name__ == "__main__":
                         help="DODO filename")
     arguments = parser.parse_args()
     quick_access = arguments.quick_access
+    print quick_access
     if quick_access:
         if arguments.quick_access.isdigit():
             arguments.id = quick_access
         elif quick_access:
-            arguments.description = quick_access
+            arguments.desc = quick_access
     global do_base
     do_base = {}
     if arguments.operation == "init":

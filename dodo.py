@@ -3,6 +3,8 @@ import argparse
 import re
 import time
 import os
+from datetime import datetime
+from time import mktime
 
 
 DODO_FILE = os.path.join(os.getcwd(), 'DODO')
@@ -25,6 +27,31 @@ class TerminalColors(object):
 
     def __init__(self):
         pass
+
+
+def pretty_date(date_string):
+    time_inst = time.strptime(date_string, "%d-%m-%y %H:%M")
+    date = datetime.fromtimestamp(mktime(time_inst))
+    diff = datetime.now() - date
+    s = diff.seconds
+    if diff.days > 7 or diff.days < 0:
+        return date.strftime('%d %b %y')
+    elif diff.days == 1:
+        return '1 day ago'
+    elif diff.days > 1:
+        return '{} days ago'.format(diff.days)
+    elif s <= 1:
+        return 'just now'
+    elif s < 60:
+        return '{} seconds ago'.format(s)
+    elif s < 120:
+        return '1 minute ago'
+    elif s < 3600:
+        return '{} minutes ago'.format(s/60)
+    elif s < 7200:
+        return '1 hour ago'
+    else:
+        return '{} hours ago'.format(s/3600)
 
 
 def parse_dodo(line):
@@ -135,7 +162,7 @@ def dodo_add(args):
     global username
     do_user = args.user or username
     if args.operation in ["add", "propose", "c"]:
-        if arguments.id:
+        if args.id:
             print "Error: DoDo assigns id for you."
             exit()
         do_id = str(len(do_base) + 1)
@@ -182,7 +209,8 @@ def dodo_list():
         elif value["status"] == "+":
             color = TerminalColors.BLUE
         user = value["user"] if value["user"] != "None" else "anonymous"
-        print "%s%s\t[%s]\t\t%s\t(%s)\t\t%s%s" % (color, value["id"], value["status"], value["time"],
+        human_time = pretty_date(value["time"])
+        print "%s%s\t[%s]\t\t%s\t(%s)\t\t%s%s" % (color, value["id"], value["status"], human_time,
                                                   user, value["description"], TerminalColors.END)
     print "%sAvailable Operations: c accept propose reject workon finish remove d\n" \
           "Available Options: -id -d(description) -u(user) -t(time) -f(file)\n" \

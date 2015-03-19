@@ -6,7 +6,8 @@ import os
 
 
 DODO_FILE = os.path.join(os.getcwd(), 'DODO')
-VERSION = "0.94"
+VERSION = "0.95"
+username = os.path.split(os.path.expanduser('~'))[-1]
 
 
 class TerminalColors(object):
@@ -88,12 +89,12 @@ def dodo_write(content, mode="a"):
     file_inst = open(DODO_FILE, mode)
     file_inst.write(content)
     file_inst.close()
-    print "DoDo updated."
+    dodo_list()
 
 
 def dodo_change_status(args, mod_do_base, status):
     if not args.id:
-        print "ID (-id) can't be empty"
+        print "ID (-id) can't be empty. May be try creating the task first"
         return
     do_entry = mod_do_base.get(args.id)
     if do_entry:
@@ -131,10 +132,14 @@ def dodo_add(args):
     # working
     . complete
     """
+    global username
+    do_user = args.user or username
     if args.operation in ["add", "propose", "c"]:
+        if arguments.id:
+            print "Error: DoDo assigns id for you."
+            exit()
         do_id = str(len(do_base) + 1)
         do_description = args.desc
-        do_user = args.user
         do_time = args.time or time.strftime("%d-%m-%y %H:%M", time.localtime())
         do_base[do_id] = {
             "id": do_id,
@@ -199,6 +204,8 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("operation", type=str,
                         help="List all existing dodos add, propose, accept, reject, workon, finish, remove")
+    parser.add_argument("quick_access", type=str, nargs='?', default='',
+                        help="Task ID for a operation or Description for the new task")
     parser.add_argument("-d", "--desc", "--description", type=str,
                         help="Task Description")
     parser.add_argument("-u", "--user", type=str,
@@ -210,6 +217,12 @@ if __name__ == "__main__":
     parser.add_argument("-f", "--file", type=str,
                         help="DODO filename")
     arguments = parser.parse_args()
+    quick_access = arguments.quick_access
+    if quick_access:
+        if arguments.quick_access.isdigit():
+            arguments.id = quick_access
+        elif quick_access:
+            arguments.description = quick_access
     global do_base
     do_base = {}
     if arguments.operation == "init":

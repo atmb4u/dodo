@@ -8,7 +8,7 @@ Tasks are called as *DoDo*, and __your goal is to make DoDos extinct.__
 In the latest version, username is automatically populated from the system username if not passed explicitly. And the usage flow has been stripped down so as to take the ease of use to the next level
 
 
-###Getting Started
+## Getting Started
 
 ```python
 pip install dodopie
@@ -16,13 +16,42 @@ pip install dodopie
 # sudo pip install dodopie
 ```
 
-###Initializing
+### Initializing
+
 ```python
 dodo init
 ```
     Options
 
     dodo init -f [dodo filename]
+
+
+### Basic WorkFlow
+
+
+```python
+dodo add "New Task"  # add a new DoDo
+```
+``` python
+dodo l  # list all dodo tasks
+> ID	Status		Date(-t)	    Owner(-u)		Description (-d)
+
+> 1	    [+]		    1 minute ago	(atm)		    New Task
+```
+```python
+dodo workon 1  # mark DoDo #1 as working on
+```
+```python
+dodo finish 1  # mark DoDo #1 as finished
+```
+```python
+dodo l
+> ID	Status		Date(-t)	    Owner(-u)		Description (-d)
+
+> 1	    [.]		    1 minute ago	(atm)		    New Task
+```
+
+## Detailed Documentation
 
 ### List all Tasks
 ```python

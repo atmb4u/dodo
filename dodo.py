@@ -95,7 +95,6 @@ def dodo_load(args):
         for content in contents:
             do_data = parse_dodo(content)
             do_dict.update({do_data["id"]: do_data})
-    file_inst.close()
     return do_dict
 
 

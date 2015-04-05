@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 import argparse
+import calendar
 import json
 import re
 import time
@@ -39,8 +40,8 @@ statuses = {
 
 
 def pretty_date(date_string):
-    time_inst = time.strptime(date_string, "%d-%m-%y %H:%M")
-    date = datetime.fromtimestamp(mktime(time_inst))
+    timestamp = calendar.timegm((datetime.strptime(date_string, "%d-%m-%y %H:%M")).timetuple())
+    date = datetime.fromtimestamp(timestamp)
     diff = datetime.now() - date
     s = diff.seconds
     if diff.days > 7 or diff.days < 0:
@@ -148,7 +149,7 @@ def dodo_change_status(args, mod_do_base, status):
         do_id = str(len(mod_do_base) + 1)
         do_description = args.desc
         do_user = args.user
-        do_time = args.time or time.strftime("%d-%m-%y %H:%M", time.localtime())
+        do_time = args.time or time.strftime("%d-%m-%y %H:%M", time.gmtime())
         mod_do_base[do_id] = {
             "id": do_id,
             "time": do_time,
@@ -176,7 +177,7 @@ def dodo_add(args):
             exit()
         do_id = str(len(do_base) + 1)
         do_description = args.desc
-        do_time = args.time or time.strftime("%d-%m-%y %H:%M", time.localtime())
+        do_time = args.time or time.strftime("%d-%m-%y %H:%M", time.gmtime())
         do_base[do_id] = {
             "id": do_id,
             "time": do_time,
@@ -236,7 +237,6 @@ def dodo_import(args):
     global username
     do_user = args.user or username
     json_file = args.i
-    # import ipdb; ipdb.set_trace()
     json_source = json.loads(open(json_file).read())
     for task in json_source:
         do_id = str(len(do_base) + 1)
@@ -263,6 +263,7 @@ def dodo_export(args):
     """
     {"id":1,"description":"Read Docs Now","entry":"20150405T020324Z","status":"pending",
     "uuid":"1ac1893d-db66-40d7-bf67-77ca7c51a3fc","urgency":"0"}
+    Time is in UTC
     """
     dodo_data = []
     for instance in do_base.values():
@@ -284,7 +285,7 @@ def dodo_export(args):
                   (TerminalColors.GREEN, file_name, TerminalColors.END)
         except IOError:
             print "%sExport failed; Check for permission to create/edit %s%s" % \
-                  (TerminalColors.RED, file_name, TerminalColors.END)
+                  (TerminalColors.RED, args.output, TerminalColors.END)
     else:
         print "%sUse -e or --export to <filename.json> to export to a file.%s" % \
               (TerminalColors.YELLOW, TerminalColors.END)

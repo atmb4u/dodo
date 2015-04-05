@@ -29,6 +29,14 @@ class TerminalColors(object):
     def __init__(self):
         pass
 
+statuses = {
+    '+': 'add',
+    '*': 'accepted',
+    '-': 'rejected',
+    '#': 'working',
+    '.': 'complete'
+}
+
 
 def pretty_date(date_string):
     time_inst = time.strptime(date_string, "%d-%m-%y %H:%M")
@@ -251,6 +259,40 @@ def dodo_import(args):
     print "Imported %d tasks successfully" % len(json_source)
 
 
+def dodo_export(args):
+    """
+    {"id":1,"description":"Read Docs Now","entry":"20150405T020324Z","status":"pending",
+    "uuid":"1ac1893d-db66-40d7-bf67-77ca7c51a3fc","urgency":"0"}
+    """
+    dodo_data = []
+    for instance in do_base.values():
+        dodo_data.append({
+            "id": instance["id"],
+            "time": instance["time"],
+            "user": instance["user"],
+            "status": statuses[instance["status"]],
+            "description": instance["description"]
+        }
+        )
+    if args.output:
+        try:
+            file_name = args.output
+            file_inst = open(file_name, "w")
+            file_inst.write(json.dumps(dodo_data))
+            file_inst.close()
+            print "%sExported DODO to %s%s" % \
+                  (TerminalColors.GREEN, file_name, TerminalColors.END)
+        except IOError:
+            print "%sExport failed; Check for permission to create/edit %s%s" % \
+                  (TerminalColors.RED, file_name, TerminalColors.END)
+    else:
+        print "%sUse -e or --export to <filename.json> to export to a file.%s" % \
+              (TerminalColors.YELLOW, TerminalColors.END)
+        print "%s" % TerminalColors.GREEN
+        print dodo_data
+        print "%s" % TerminalColors.END
+
+
 def dodo_switch(args):
     global do_base
     if args.operation == "init":
@@ -259,6 +301,8 @@ def dodo_switch(args):
         dodo_add(args)
     elif args.operation == 'import':
         dodo_import(args)
+    elif args.operation == 'export':
+        dodo_export(args)
     else:
         dodo_list()
 
@@ -281,6 +325,8 @@ if __name__ == "__main__":
                         help="DODO filename")
     parser.add_argument("-i", type=str,
                         help="Import from JSON file")
+    parser.add_argument("-o", "--output", type=str,
+                        help="Export to JSON file")
     arguments = parser.parse_args()
     quick_access = arguments.quick_access
     print quick_access

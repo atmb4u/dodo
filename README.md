@@ -35,7 +35,6 @@ dodo add "New Task"  # add a new DoDo
 ``` python
 dodo l  # list all dodo tasks
 > ID	Status		Date(-t)	    Owner(-u)		Description (-d)
-
 > 1	    [+]		    1 minute ago	(atm)		    New Task
 ```
 ```python
@@ -47,7 +46,6 @@ dodo finish 1  # mark DoDo #1 as finished
 ```python
 dodo l
 > ID	Status		Date(-t)	    Owner(-u)		Description (-d)
-
 > 1	    [.]		    1 minute ago	(atm)		    New Task
 ```
 
@@ -61,10 +59,10 @@ dodo l
 ### Propose a new Task
 ```bash
 
-#simple version
+# simple version
 dodo add "This is a new task"
 
-#verbose version
+# verbose version
 dodo c -u atmb4u -d "dodo new version"
 dodo add -u atmb4u -d "dodo new version"
 dodo propose -u atmb4u -d "dodo new version"
@@ -73,10 +71,10 @@ dodo propose -u atmb4u -d "dodo new version"
 ### Accept a Tasks
 ```bash
 
-#simple version
+# simple version
 dodo accept 2
 
-#verbose version
+# verbose version
 
 dodo accept --id 2 -u atmb4u -d "dodo new version"
 ```
@@ -84,31 +82,30 @@ dodo accept --id 2 -u atmb4u -d "dodo new version"
 ### Reject a proposed Tasks
 ```bash
 
-#simple version
+# simple version
 dodo reject 2
 
-#verbose version
+# verbose version
 dodo reject --id 2 -u atmb4u
 ```
 
 ### Work on a new Tasks
 ```bash
 
-#simple version
+# simple version
 dodo workon 2
 
-#verbose version
+# verbose version
 dodo workon --id 2 -u atmb4u
 ```
 
 ### Mark a task as Finished
 ```bash
 
-#simple version
+# simple version
 dodo finish 1
 
 # verbose version
-
 dodo finish --id 1 -u atmb4u -d "dodo new version"
 ```
 

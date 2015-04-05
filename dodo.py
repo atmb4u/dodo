@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 import argparse
+import json
 import re
 import time
 import os
@@ -218,12 +219,46 @@ def dodo_list():
               TerminalColors.BOLD, TerminalColors.END)
 
 
+def dodo_import(args):
+    """
+    Sample import JSON format (same as taskwarrior export format)
+    {"id":1,"description":"Read Docs Now","entry":"20150405T020324Z","status":"pending",
+    "uuid":"1ac1893d-db66-40d7-bf67-77ca7c51a3fc","urgency":"0"}
+    """
+    global username
+    do_user = args.user or username
+    json_file = args.i
+    # import ipdb; ipdb.set_trace()
+    json_source = json.loads(open(json_file).read())
+    for task in json_source:
+        do_id = str(len(do_base) + 1)
+        do_description = task["description"]
+        utc_time = time.strptime(task["entry"], "%Y%m%dT%H%M%S%fZ")
+        do_time = time.strftime("%d-%m-%y %H:%M", utc_time)
+        do_status = "+"
+        if task["status"] == "pending":
+            do_status = "+"
+        if task["status"] == "completed":
+            do_status = "."
+        do_base[do_id] = {
+            "id": do_id,
+            "time": do_time,
+            "user": do_user,
+            "status": do_status,
+            "description": do_description
+        }
+    dodo_unload(do_base)
+    print "Imported %d tasks successfully" % len(json_source)
+
+
 def dodo_switch(args):
     global do_base
     if args.operation == "init":
         dodo_init(args)
     elif args.operation in ['add', 'propose', 'accept', 'reject', 'workon', 'finish', 'remove', "c", "d"]:
         dodo_add(args)
+    elif args.operation == 'import':
+        dodo_import(args)
     else:
         dodo_list()
 
@@ -244,6 +279,8 @@ if __name__ == "__main__":
                         help="List all existing dodos")
     parser.add_argument("-f", "--file", type=str,
                         help="DODO filename")
+    parser.add_argument("-i", type=str,
+                        help="Import from JSON file")
     arguments = parser.parse_args()
     quick_access = arguments.quick_access
     print quick_access

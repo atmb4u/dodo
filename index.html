@@ -1,34 +1,25 @@
 <!DOCTYPE html>
-<html>
+<html lang="en-us">
   <head>
-    <meta charset='utf-8'>
-    <meta http-equiv="X-UA-Compatible" content="chrome=1">
-
-    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
-    <link rel="stylesheet" type="text/css" href="stylesheets/pygment_trac.css" media="screen">
-    <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print">
-
+    <meta charset="UTF-8">
     <title>DoDo by atmb4u</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="stylesheets/normalize.css" media="screen">
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="stylesheets/github-light.css" media="screen">
   </head>
-
   <body>
+    <section class="page-header">
+      <h1 class="project-name">DoDo</h1>
+      <h2 class="project-tagline">In-repo Task Management for Hackers</h2>
+      <a href="https://github.com/atmb4u/dodo" class="btn">View on GitHub</a>
+      <a href="https://github.com/atmb4u/dodo/zipball/master" class="btn">Download .zip</a>
+      <a href="https://github.com/atmb4u/dodo/tarball/master" class="btn">Download .tar.gz</a>
+    </section>
 
-    <header>
-      <div class="container">
-        <h1>DoDo</h1>
-        <h2>In-repo Task Management for Hackers</h2>
-
-        <section id="downloads">
-          <a href="https://github.com/atmb4u/dodo/zipball/master" class="btn">Download as .zip</a>
-          <a href="https://github.com/atmb4u/dodo/tarball/master" class="btn">Download as .tar.gz</a>
-          <a href="https://github.com/atmb4u/dodo" class="btn btn-github"><span class="icon"></span>View on GitHub</a>
-        </section>
-      </div>
-    </header>
-
-    <div class="container">
-      <section id="main_content">
-        <p><img src="https://github.com/atmb4u/dodo/blob/master/logo.png?raw=true" alt="DoDo"></p>
+    <section class="main-content">
+      <p><img src="https://github.com/atmb4u/dodo/blob/master/logo.png?raw=true" alt="DoDo"></p>
 
 <h2>
 <a id="dodo---task-management-for-hackers" class="anchor" href="#dodo---task-management-for-hackers" aria-hidden="true"><span class="octicon octicon-link"></span></a>DoDo - Task Management for Hackers</h2>
@@ -62,7 +53,6 @@ dodo init -f [dodo filename]
 
 <div class="highlight highlight-python"><pre>dodo l  <span class="pl-c"># list all dodo tasks</span>
 <span class="pl-k">&gt;</span> ID    Status      Date(<span class="pl-k">-</span>t)        Owner(<span class="pl-k">-</span>u)       Description (<span class="pl-k">-</span>d)
-
 <span class="pl-k">&gt;</span> <span class="pl-c1">1</span>     [<span class="pl-k">+</span>]         <span class="pl-c1">1</span> minute ago    (atm)           New Task</pre></div>
 
 <div class="highlight highlight-python"><pre>dodo workon <span class="pl-c1">1</span>  <span class="pl-c"># mark DoDo #1 as working on</span></pre></div>
@@ -71,7 +61,6 @@ dodo init -f [dodo filename]
 
 <div class="highlight highlight-python"><pre>dodo l
 <span class="pl-k">&gt;</span> ID    Status      Date(<span class="pl-k">-</span>t)        Owner(<span class="pl-k">-</span>u)       Description (<span class="pl-k">-</span>d)
-
 <span class="pl-k">&gt;</span> <span class="pl-c1">1</span>     [.]         <span class="pl-c1">1</span> minute ago    (atm)           New Task</pre></div>
 
 <h2>
@@ -86,10 +75,10 @@ dodo init -f [dodo filename]
 <a id="propose-a-new-task" class="anchor" href="#propose-a-new-task" aria-hidden="true"><span class="octicon octicon-link"></span></a>Propose a new Task</h3>
 
 <div class="highlight highlight-bash"><pre>
-<span class="pl-c">#simple version</span>
+<span class="pl-c"># simple version</span>
 dodo add <span class="pl-s"><span class="pl-pds">"</span>This is a new task<span class="pl-pds">"</span></span>
 
-<span class="pl-c">#verbose version</span>
+<span class="pl-c"># verbose version</span>
 dodo c -u atmb4u -d <span class="pl-s"><span class="pl-pds">"</span>dodo new version<span class="pl-pds">"</span></span>
 dodo add -u atmb4u -d <span class="pl-s"><span class="pl-pds">"</span>dodo new version<span class="pl-pds">"</span></span>
 dodo propose -u atmb4u -d <span class="pl-s"><span class="pl-pds">"</span>dodo new version<span class="pl-pds">"</span></span></pre></div>
@@ -98,10 +87,10 @@ dodo propose -u atmb4u -d <span class="pl-s"><span class="pl-pds">"</span>dodo n
 <a id="accept-a-tasks" class="anchor" href="#accept-a-tasks" aria-hidden="true"><span class="octicon octicon-link"></span></a>Accept a Tasks</h3>
 
 <div class="highlight highlight-bash"><pre>
-<span class="pl-c">#simple version</span>
+<span class="pl-c"># simple version</span>
 dodo accept 2
 
-<span class="pl-c">#verbose version</span>
+<span class="pl-c"># verbose version</span>
 
 dodo accept --id 2 -u atmb4u -d <span class="pl-s"><span class="pl-pds">"</span>dodo new version<span class="pl-pds">"</span></span></pre></div>
 
@@ -109,31 +98,30 @@ dodo accept --id 2 -u atmb4u -d <span class="pl-s"><span class="pl-pds">"</span>
 <a id="reject-a-proposed-tasks" class="anchor" href="#reject-a-proposed-tasks" aria-hidden="true"><span class="octicon octicon-link"></span></a>Reject a proposed Tasks</h3>
 
 <div class="highlight highlight-bash"><pre>
-<span class="pl-c">#simple version</span>
+<span class="pl-c"># simple version</span>
 dodo reject 2
 
-<span class="pl-c">#verbose version</span>
+<span class="pl-c"># verbose version</span>
 dodo reject --id 2 -u atmb4u</pre></div>
 
 <h3>
 <a id="work-on-a-new-tasks" class="anchor" href="#work-on-a-new-tasks" aria-hidden="true"><span class="octicon octicon-link"></span></a>Work on a new Tasks</h3>
 
 <div class="highlight highlight-bash"><pre>
-<span class="pl-c">#simple version</span>
+<span class="pl-c"># simple version</span>
 dodo workon 2
 
-<span class="pl-c">#verbose version</span>
+<span class="pl-c"># verbose version</span>
 dodo workon --id 2 -u atmb4u</pre></div>
 
 <h3>
 <a id="mark-a-task-as-finished" class="anchor" href="#mark-a-task-as-finished" aria-hidden="true"><span class="octicon octicon-link"></span></a>Mark a task as Finished</h3>
 
 <div class="highlight highlight-bash"><pre>
-<span class="pl-c">#simple version</span>
+<span class="pl-c"># simple version</span>
 dodo finish 1
 
 <span class="pl-c"># verbose version</span>
-
 dodo finish --id 1 -u atmb4u -d <span class="pl-s"><span class="pl-pds">"</span>dodo new version<span class="pl-pds">"</span></span></pre></div>
 
 <h3>
@@ -141,16 +129,40 @@ dodo finish --id 1 -u atmb4u -d <span class="pl-s"><span class="pl-pds">"</span>
 
 <div class="highlight highlight-bash"><pre>dodo remove 1</pre></div>
 
+<h3>
+<a id="export-tasks" class="anchor" href="#export-tasks" aria-hidden="true"><span class="octicon octicon-link"></span></a>Export Tasks</h3>
+
+<div class="highlight highlight-bash"><pre>dodo <span class="pl-k">export</span> -o filename.json
+<span class="pl-c"># will export all the tasks to filename.json</span>
+
+dodo <span class="pl-k">export</span>
+<span class="pl-c"># will print all the tasks in json format</span></pre></div>
+
+<h3>
+<a id="import-tasks" class="anchor" href="#import-tasks" aria-hidden="true"><span class="octicon octicon-link"></span></a>Import Tasks</h3>
+
+<div class="highlight highlight-bash"><pre>dodo import -i filename.json
+<span class="pl-c"># will import all the tasks from filename.json</span>
+
+Sample Input File Format: [{<span class="pl-s"><span class="pl-pds">"</span>id<span class="pl-pds">"</span></span>:1, <span class="pl-s"><span class="pl-pds">"</span>description<span class="pl-pds">"</span></span>:<span class="pl-s"><span class="pl-pds">"</span>Read Docs Now<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>entry<span class="pl-pds">"</span></span>:<span class="pl-s"><span class="pl-pds">"</span>20150405T020324Z<span class="pl-pds">"</span></span>,
+<span class="pl-s"><span class="pl-pds">"</span>status<span class="pl-pds">"</span></span>:<span class="pl-s"><span class="pl-pds">"</span>pending<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>uuid<span class="pl-pds">"</span></span>:<span class="pl-s"><span class="pl-pds">"</span>1ac1893d-db66-40d7-bf67-77ca7c51a3fc<span class="pl-pds">"</span></span>,<span class="pl-s"><span class="pl-pds">"</span>urgency<span class="pl-pds">"</span></span>:<span class="pl-s"><span class="pl-pds">"</span>0<span class="pl-pds">"</span></span>}]</pre></div>
+
 <h2>
 <a id="authors" class="anchor" href="#authors" aria-hidden="true"><span class="octicon octicon-link"></span></a>Authors</h2>
 
 <p>atmb4u [at] gmail [dot] com</p>
 
 <p>Thanks to IanCal, GuyOnTheInterweb, elrac1, iambeard for the <strong>super creative</strong> suggestions in <a href="http://www.reddit.com/r/coding/comments/2zgie7/dodo_task_management_for_developers/">reddit</a></p>
-      </section>
-    </div>
 
-              <script type="text/javascript">
+      <footer class="site-footer">
+        <span class="site-footer-owner"><a href="https://github.com/atmb4u/dodo">DoDo</a> is maintained by <a href="https://github.com/atmb4u">atmb4u</a>.</span>
+
+        <span class="site-footer-credits">This page was generated by <a href="https://pages.github.com">GitHub Pages</a> using the <a href="https://github.com/jasonlong/cayman-theme">Cayman theme</a> by <a href="https://twitter.com/jasonlong">Jason Long</a>.</span>
+      </footer>
+
+    </section>
+
+            <script type="text/javascript">
             var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
             document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
           </script>
@@ -163,3 +175,4 @@ dodo finish --id 1 -u atmb4u -d <span class="pl-s"><span class="pl-pds">"</span>
 
   </body>
 </html>
+

@@ -235,7 +235,7 @@ def dodo_import(args):
     """
     global username
     do_user = args.user or username
-    json_file = args.i
+    json_file = args.input
     json_source = json.loads(open(json_file).read())
     for task in json_source:
         do_id = str(len(do_base) + 1)
@@ -323,7 +323,7 @@ if __name__ == "__main__":
                         help="List all existing dodos")
     parser.add_argument("-f", "--file", type=str,
                         help="DODO filename")
-    parser.add_argument("-i", type=str,
+    parser.add_argument("-i", "--input", type=str,
                         help="Import from JSON file")
     parser.add_argument("-o", "--output", type=str,
                         help="Export to JSON file")

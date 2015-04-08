@@ -118,6 +118,7 @@ dodo remove 1
 ```bash
 dodo export -o filename.json
 # will export all the tasks to filename.json
+# Can use --output as well
 
 dodo export
 # will print all the tasks in json format
@@ -127,6 +128,7 @@ dodo export
 ```bash
 dodo import -i filename.json
 # will import all the tasks from filename.json
+# Can use --input as well
 
 Sample Input File Format: [{"id":1, "description":"Read Docs Now", "entry":"20150405T020324Z",
 "status":"pending", "uuid":"1ac1893d-db66-40d7-bf67-77ca7c51a3fc","urgency":"0"}]

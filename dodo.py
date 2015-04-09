@@ -100,7 +100,7 @@ def dodo_load(args):
 
 def dodo_unload(final_do_base):
     content = ""
-    for key, value in final_do_base.iteritems():
+    for key, value in sorted(final_do_base.iteritems(), key=lambda (key, value): key):
         content += "#%s [[%s]] <<%s>> ((%s)) {{%s}}\n" % (value["id"], value["status"], value["time"],
                                                           value["user"], value["description"])
     dodo_write(content, "w")
@@ -207,7 +207,7 @@ def dodo_list():
     print "%s%sID\tStatus\t\tDate(-t)\tOwner(-u)\t\tDescription (-d)\n%s" % (TerminalColors.BOLD,
                                                                              TerminalColors.UNDERLINE,
                                                                              TerminalColors.END)
-    for key, value in do_base.iteritems():
+    for key, value in sorted(do_base.iteritems(), key=lambda (key, value): key):
         color = TerminalColors.YELLOW
         if value["status"] == ".":
             color = TerminalColors.GREEN
@@ -221,7 +221,7 @@ def dodo_list():
         human_time = pretty_date(value["time"])
         print "%s%s\t[%s]\t\t%s\t(%s)\t\t%s%s" % (color, value["id"], value["status"], human_time,
                                                   user, value["description"], TerminalColors.END)
-    print "%sAvailable Operations: c accept propose reject workon finish remove d\n" \
+    print "\n%sAvailable Operations: c accept propose reject workon finish remove d\n" \
           "Available Options: -id -d(description) -u(user) -t(time) -f(file)\n" \
           "Status: + proposed - rejected * accepted # working . complete%s" % (
               TerminalColors.BOLD, TerminalColors.END)
@@ -265,7 +265,7 @@ def dodo_export(args):
     Time is in UTC
     """
     dodo_data = []
-    for instance in do_base.values():
+    for instance in sorted(do_base.values(), key=lambda value: value["id"]):
         dodo_data.append({
             "id": instance["id"],
             "time": instance["time"],

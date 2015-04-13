@@ -214,7 +214,7 @@ def dodo_list():
         elif value["status"] in ["-", 'x']:
             color = TerminalColors.RED
         elif value["status"] == "#":
-            color = TerminalColors.YELLOW
+            color = TerminalColors.UNDERLINE + TerminalColors.YELLOW
         elif value["status"] == "+":
             color = TerminalColors.BLUE
         user = value["user"] if value["user"] != "None" else "anonymous"

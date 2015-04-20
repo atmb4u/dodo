@@ -206,6 +206,11 @@ def dodo_add(args):
         except KeyError:
             print("No task with id %s" % args.id)
         dodo_unload(do_base)
+    elif args.operation == "flush":
+        for do_entry in list(do_base.values()):
+            if do_entry["status"] in ["-", "."]:
+                do_base.pop(do_entry["id"])
+        dodo_unload(do_base)
     return
 
 
@@ -228,7 +233,7 @@ def dodo_list():
         human_time = pretty_date(value["time"])
         print("%s%s\t[%s]\t\t%s\t(%s)\t\t%s%s" % (color, value["id"], value["status"], human_time,
                                                   user, value["description"], TerminalColors.END))
-    print("\n%sAvailable Operations: c accept propose reject workon finish remove d\n" \
+    print("\n%sAvailable Operations: c accept propose reject workon finish remove d flush\n" \
           "Available Options: -id -d(description) -u(user) -t(time) -f(file)\n" \
           "Status: + proposed - rejected * accepted # working . complete%s" % (
               TerminalColors.BOLD, TerminalColors.END))
@@ -304,7 +309,7 @@ def dodo_switch(args):
     global do_base
     if args.operation == "init":
         dodo_init(args)
-    elif args.operation in ['add', 'propose', 'accept', 'reject', 'workon', 'finish', 'remove', "c", "d"]:
+    elif args.operation in ['add', 'propose', 'accept', 'reject', 'workon', 'finish', 'flush', 'remove', "c", "d"]:
         dodo_add(args)
     elif args.operation == 'import':
         dodo_import(args)
@@ -317,7 +322,7 @@ def dodo_switch(args):
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("operation", type=str,
-                        help="List all existing dodos add, propose, accept, reject, workon, finish, remove")
+                        help="List all existing dodos add, propose, accept, reject, workon, finish, remove, flush")
     parser.add_argument("quick_access", type=str, nargs='?', default='',
                         help="Task ID for a operation or Description for the new task")
     parser.add_argument("-d", "--desc", "--description", type=str,

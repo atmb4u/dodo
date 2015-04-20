@@ -114,6 +114,12 @@ dodo finish --id 1 -u atmb4u -d "dodo new version"
 dodo remove 1
 ```
 
+### Flush finished Tasks
+```bash
+dodo flush
+# will remove all finished or rejected tasks
+```
+
 ### Export Tasks
 ```bash
 dodo export -o filename.json

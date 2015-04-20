@@ -100,7 +100,7 @@ def dodo_load(args):
 
 def dodo_unload(final_do_base):
     content = ""
-    for key, value in sorted(iter(final_do_base.items()), key=lambda key_value: key_value[0]):
+    for key, value in sorted(iter(final_do_base.items()), key=lambda key_value: int(key_value[0])):
         content += "#%s [[%s]] <<%s>> ((%s)) {{%s}}\n" % (value["id"], value["status"], value["time"],
                                                           value["user"], value["description"])
     dodo_write(content, "w")
@@ -128,6 +128,13 @@ def dodo_write(content, mode="a"):
     dodo_list()
 
 
+def dodo_new_id ():
+    if len (do_base) == 0:
+        return "1"
+    else:
+        return str(max(int(id) for id in do_base.keys()) + 1)
+
+
 def dodo_change_status(args, mod_do_base, status):
     if not args.id:
         print("ID (-id) can't be empty. May be try creating the task first")
@@ -145,7 +152,7 @@ def dodo_change_status(args, mod_do_base, status):
         if not args.desc:
             print("Description (-d) can't be empty")
             return
-        do_id = str(len(mod_do_base) + 1)
+        do_id = dodo_new_id ()
         do_description = args.desc
         do_user = args.user
         do_time = args.time or time.strftime("%d-%m-%y %H:%M", time.gmtime())
@@ -174,7 +181,7 @@ def dodo_add(args):
         if args.id:
             print("Error: DoDo assigns id for you.")
             exit()
-        do_id = str(len(do_base) + 1)
+        do_id = dodo_new_id ()
         do_description = args.desc
         do_time = args.time or time.strftime("%d-%m-%y %H:%M", time.gmtime())
         do_base[do_id] = {
@@ -199,6 +206,11 @@ def dodo_add(args):
         except KeyError:
             print("No task with id %s" % args.id)
         dodo_unload(do_base)
+    elif args.operation == "flush":
+        for do_entry in list(do_base.values()):
+            if do_entry["status"] in ["-", "."]:
+                do_base.pop(do_entry["id"])
+        dodo_unload(do_base)
     return
 
 
@@ -207,7 +219,7 @@ def dodo_list():
     print("%s%sID\tStatus\t\tDate(-t)\tOwner(-u)\t\tDescription (-d)\n%s" % (TerminalColors.BOLD,
                                                                              TerminalColors.UNDERLINE,
                                                                              TerminalColors.END))
-    for key, value in sorted(iter(do_base.items()), key=lambda key_value1: key_value1[0]):
+    for key, value in sorted(iter(do_base.items()), key=lambda key_value1: int(key_value1[0])):
         color = TerminalColors.YELLOW
         if value["status"] == ".":
             color = TerminalColors.GREEN
@@ -221,7 +233,7 @@ def dodo_list():
         human_time = pretty_date(value["time"])
         print("%s%s\t[%s]\t\t%s\t(%s)\t\t%s%s" % (color, value["id"], value["status"], human_time,
                                                   user, value["description"], TerminalColors.END))
-    print("\n%sAvailable Operations: c accept propose reject workon finish remove d\n" \
+    print("\n%sAvailable Operations: c accept propose reject workon finish remove d flush\n" \
           "Available Options: -id -d(description) -u(user) -t(time) -f(file)\n" \
           "Status: + proposed - rejected * accepted # working . complete%s" % (
               TerminalColors.BOLD, TerminalColors.END))
@@ -238,7 +250,7 @@ def dodo_import(args):
     json_file = args.input
     json_source = json.loads(open(json_file).read())
     for task in json_source:
-        do_id = str(len(do_base) + 1)
+        do_id = dodo_new_id ()
         do_description = task["description"]
         utc_time = time.strptime(task["entry"], "%Y%m%dT%H%M%S%fZ")
         do_time = time.strftime("%d-%m-%y %H:%M", utc_time)
@@ -265,7 +277,7 @@ def dodo_export(args):
     Time is in UTC
     """
     dodo_data = []
-    for instance in sorted(list(do_base.values()), key=lambda value: value["id"]):
+    for instance in sorted(list(do_base.values()), key=lambda value: int(value["id"])):
         dodo_data.append({
             "id": instance["id"],
             "time": instance["time"],
@@ -297,7 +309,7 @@ def dodo_switch(args):
     global do_base
     if args.operation == "init":
         dodo_init(args)
-    elif args.operation in ['add', 'propose', 'accept', 'reject', 'workon', 'finish', 'remove', "c", "d"]:
+    elif args.operation in ['add', 'propose', 'accept', 'reject', 'workon', 'finish', 'flush', 'remove', "c", "d"]:
         dodo_add(args)
     elif args.operation == 'import':
         dodo_import(args)
@@ -310,7 +322,7 @@ def dodo_switch(args):
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("operation", type=str,
-                        help="List all existing dodos add, propose, accept, reject, workon, finish, remove")
+                        help="List all existing dodos add, propose, accept, reject, workon, finish, remove, flush")
     parser.add_argument("quick_access", type=str, nargs='?', default='',
                         help="Task ID for a operation or Description for the new task")
     parser.add_argument("-d", "--desc", "--description", type=str,

@@ -128,6 +128,13 @@ def dodo_write(content, mode="a"):
     dodo_list()
 
 
+def dodo_new_id ():
+    if len (do_base) == 0:
+        return "1"
+    else:
+        return str(max(int(id) for id in do_base.keys()) + 1)
+
+
 def dodo_change_status(args, mod_do_base, status):
     if not args.id:
         print("ID (-id) can't be empty. May be try creating the task first")
@@ -145,7 +152,7 @@ def dodo_change_status(args, mod_do_base, status):
         if not args.desc:
             print("Description (-d) can't be empty")
             return
-        do_id = str(len(mod_do_base) + 1)
+        do_id = dodo_new_id ()
         do_description = args.desc
         do_user = args.user
         do_time = args.time or time.strftime("%d-%m-%y %H:%M", time.gmtime())
@@ -174,7 +181,7 @@ def dodo_add(args):
         if args.id:
             print("Error: DoDo assigns id for you.")
             exit()
-        do_id = str(len(do_base) + 1)
+        do_id = dodo_new_id ()
         do_description = args.desc
         do_time = args.time or time.strftime("%d-%m-%y %H:%M", time.gmtime())
         do_base[do_id] = {
@@ -238,7 +245,7 @@ def dodo_import(args):
     json_file = args.input
     json_source = json.loads(open(json_file).read())
     for task in json_source:
-        do_id = str(len(do_base) + 1)
+        do_id = dodo_new_id ()
         do_description = task["description"]
         utc_time = time.strptime(task["entry"], "%Y%m%dT%H%M%S%fZ")
         do_time = time.strftime("%d-%m-%y %H:%M", utc_time)

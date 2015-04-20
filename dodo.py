@@ -100,7 +100,7 @@ def dodo_load(args):
 
 def dodo_unload(final_do_base):
     content = ""
-    for key, value in sorted(iter(final_do_base.items()), key=lambda key_value: key_value[0]):
+    for key, value in sorted(iter(final_do_base.items()), key=lambda key_value: int(key_value[0])):
         content += "#%s [[%s]] <<%s>> ((%s)) {{%s}}\n" % (value["id"], value["status"], value["time"],
                                                           value["user"], value["description"])
     dodo_write(content, "w")
@@ -207,7 +207,7 @@ def dodo_list():
     print("%s%sID\tStatus\t\tDate(-t)\tOwner(-u)\t\tDescription (-d)\n%s" % (TerminalColors.BOLD,
                                                                              TerminalColors.UNDERLINE,
                                                                              TerminalColors.END))
-    for key, value in sorted(iter(do_base.items()), key=lambda key_value1: key_value1[0]):
+    for key, value in sorted(iter(do_base.items()), key=lambda key_value1: int(key_value1[0])):
         color = TerminalColors.YELLOW
         if value["status"] == ".":
             color = TerminalColors.GREEN
@@ -265,7 +265,7 @@ def dodo_export(args):
     Time is in UTC
     """
     dodo_data = []
-    for instance in sorted(list(do_base.values()), key=lambda value: value["id"]):
+    for instance in sorted(list(do_base.values()), key=lambda value: int(value["id"])):
         dodo_data.append({
             "id": instance["id"],
             "time": instance["time"],

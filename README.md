@@ -141,8 +141,17 @@ Sample Input File Format: [{"id":1, "description":"Read Docs Now", "entry":"2015
 ```
 
 
-## Authors
-atmb4u [at] gmail [dot] com
+## Author
+
+[atmb4u](https://github.com/atmb4u)
+
+## Contributors
+
+[btnpushnmunky](https://github.com/btnpushnmunky)
+
+[jsnathan](https://github.com/jsnathan)
+
+[zeroSteiner](https://github.com/zeroSteiner)
 
 
 Thanks to IanCal, GuyOnTheInterweb, elrac1, iambeard for the **super creative** suggestions in [reddit](http://www.reddit.com/r/coding/comments/2zgie7/dodo_task_management_for_developers/)

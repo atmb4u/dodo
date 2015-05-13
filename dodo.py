@@ -321,27 +321,32 @@ def dodo_switch(args):
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
-    parser.add_argument("operation", type=str,
-                        help="List all existing dodos add, propose, accept, reject, workon, finish, remove, flush")
-    parser.add_argument("quick_access", type=str, nargs='?', default='',
+    parser.add_argument("operation", nargs='?', default='list', choices=[
+                            'accept',
+                            'add',
+                            'finish',
+                            'flush',
+                            'list',
+                            'propose',
+                            'reject',
+                            'remove',
+                            'workon'
+                        ],
+                        help="The operation to perform")
+    parser.add_argument("quick_access", nargs='?', default='',
                         help="Task ID for a operation or Description for the new task")
-    parser.add_argument("-d", "--desc", "--description", type=str,
+    parser.add_argument("-d", "--desc", "--description",
                         help="Task Description")
-    parser.add_argument("-u", "--user", type=str,
-                        help="User ID")
-    parser.add_argument("-t", "--time", type=str,
+    parser.add_argument("-u", "--user", help="User ID")
+    parser.add_argument("-t", "--time",
                         help="Expected/Completed Date - 11-03-2015")
-    parser.add_argument("--id", type=str,
-                        help="List all existing dodos")
-    parser.add_argument("-f", "--file", type=str,
-                        help="DODO filename")
-    parser.add_argument("-i", "--input", type=str,
-                        help="Import from JSON file")
-    parser.add_argument("-o", "--output", type=str,
-                        help="Export to JSON file")
+    parser.add_argument("--id", help="List all existing dodos")
+    parser.add_argument("-f", "--file", help="DODO filename")
+    parser.add_argument("-i", "--input", help="Import from JSON file")
+    parser.add_argument("-o", "--output", help="Export to JSON file")
     arguments = parser.parse_args()
+
     quick_access = arguments.quick_access
-    print(quick_access)
     if quick_access:
         if arguments.quick_access.isdigit():
             arguments.id = quick_access

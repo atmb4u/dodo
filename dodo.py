@@ -5,6 +5,7 @@ import json
 import re
 import time
 import os
+import sys
 from datetime import datetime
 from time import mktime
 
@@ -317,9 +318,11 @@ def dodo_switch(args):
 
 
 if __name__ == "__main__":
+    default_operation = 'list'
     default_user = os.path.split(os.path.expanduser('~'))[-1]
     parser = argparse.ArgumentParser()
-    parser.add_argument("operation", nargs='?', default='list', choices=[
+    parser.add_argument("operation", nargs='?', default=default_operation,
+                        choices=[
                             'accept',
                             'add',
                             'finish',
@@ -343,6 +346,11 @@ if __name__ == "__main__":
     parser.add_argument("-i", "--input", help="Import from JSON file")
     parser.add_argument("-o", "--output", help="Export to JSON file")
     arguments = parser.parse_args()
+
+    if (arguments.operation == default_operation
+        and not os.path.isfile(arguments.file or DODO_FILE)):
+        parser.print_help()
+        sys.exit(0)
 
     quick_access = arguments.quick_access
     if quick_access:

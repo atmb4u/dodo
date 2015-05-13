@@ -5,13 +5,13 @@ import json
 import re
 import time
 import os
+import sys
 from datetime import datetime
 from time import mktime
 
 
 DODO_FILE = os.path.join(os.getcwd(), 'DODO')
 VERSION = "0.99"
-username = os.path.split(os.path.expanduser('~'))[-1]
 
 
 class TerminalColors(object):
@@ -175,8 +175,7 @@ def dodo_add(args):
     # working
     . complete
     """
-    global username
-    do_user = args.user or username
+    do_user = args.user
     if args.operation in ["add", "propose", "c"]:
         if args.id:
             print("Error: DoDo assigns id for you.")
@@ -245,8 +244,7 @@ def dodo_import(args):
     {"id":1,"description":"Read Docs Now","entry":"20150405T020324Z","status":"pending",
     "uuid":"1ac1893d-db66-40d7-bf67-77ca7c51a3fc","urgency":"0"}
     """
-    global username
-    do_user = args.user or username
+    do_user = args.user
     json_file = args.input
     json_source = json.loads(open(json_file).read())
     for task in json_source:
@@ -320,28 +318,41 @@ def dodo_switch(args):
 
 
 if __name__ == "__main__":
+    default_operation = 'list'
+    default_user = os.path.split(os.path.expanduser('~'))[-1]
     parser = argparse.ArgumentParser()
-    parser.add_argument("operation", type=str,
-                        help="List all existing dodos add, propose, accept, reject, workon, finish, remove, flush")
-    parser.add_argument("quick_access", type=str, nargs='?', default='',
+    parser.add_argument("operation", nargs='?', default=default_operation,
+                        choices=[
+                            'accept',
+                            'add',
+                            'finish',
+                            'flush',
+                            'list',
+                            'propose',
+                            'reject',
+                            'remove',
+                            'workon'
+                        ],
+                        help="The operation to perform")
+    parser.add_argument("quick_access", nargs='?', default='',
                         help="Task ID for a operation or Description for the new task")
-    parser.add_argument("-d", "--desc", "--description", type=str,
+    parser.add_argument("-d", "--desc", "--description",
                         help="Task Description")
-    parser.add_argument("-u", "--user", type=str,
-                        help="User ID")
-    parser.add_argument("-t", "--time", type=str,
+    parser.add_argument("-u", "--user", default=default_user, help="User ID")
+    parser.add_argument("-t", "--time",
                         help="Expected/Completed Date - 11-03-2015")
-    parser.add_argument("--id", type=str,
-                        help="List all existing dodos")
-    parser.add_argument("-f", "--file", type=str,
-                        help="DODO filename")
-    parser.add_argument("-i", "--input", type=str,
-                        help="Import from JSON file")
-    parser.add_argument("-o", "--output", type=str,
-                        help="Export to JSON file")
+    parser.add_argument("--id", help="List all existing dodos")
+    parser.add_argument("-f", "--file", help="DODO filename")
+    parser.add_argument("-i", "--input", help="Import from JSON file")
+    parser.add_argument("-o", "--output", help="Export to JSON file")
     arguments = parser.parse_args()
+
+    if (arguments.operation == default_operation
+        and not os.path.isfile(arguments.file or DODO_FILE)):
+        parser.print_help()
+        sys.exit(0)
+
     quick_access = arguments.quick_access
-    print(quick_access)
     if quick_access:
         if arguments.quick_access.isdigit():
             arguments.id = quick_access

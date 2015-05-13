@@ -11,7 +11,6 @@ from time import mktime
 
 DODO_FILE = os.path.join(os.getcwd(), 'DODO')
 VERSION = "0.99"
-username = os.path.split(os.path.expanduser('~'))[-1]
 
 
 class TerminalColors(object):
@@ -175,8 +174,7 @@ def dodo_add(args):
     # working
     . complete
     """
-    global username
-    do_user = args.user or username
+    do_user = args.user
     if args.operation in ["add", "propose", "c"]:
         if args.id:
             print("Error: DoDo assigns id for you.")
@@ -245,8 +243,7 @@ def dodo_import(args):
     {"id":1,"description":"Read Docs Now","entry":"20150405T020324Z","status":"pending",
     "uuid":"1ac1893d-db66-40d7-bf67-77ca7c51a3fc","urgency":"0"}
     """
-    global username
-    do_user = args.user or username
+    do_user = args.user
     json_file = args.input
     json_source = json.loads(open(json_file).read())
     for task in json_source:
@@ -320,6 +317,7 @@ def dodo_switch(args):
 
 
 if __name__ == "__main__":
+    default_user = os.path.split(os.path.expanduser('~'))[-1]
     parser = argparse.ArgumentParser()
     parser.add_argument("operation", nargs='?', default='list', choices=[
                             'accept',
@@ -337,7 +335,7 @@ if __name__ == "__main__":
                         help="Task ID for a operation or Description for the new task")
     parser.add_argument("-d", "--desc", "--description",
                         help="Task Description")
-    parser.add_argument("-u", "--user", help="User ID")
+    parser.add_argument("-u", "--user", default=default_user, help="User ID")
     parser.add_argument("-t", "--time",
                         help="Expected/Completed Date - 11-03-2015")
     parser.add_argument("--id", help="List all existing dodos")

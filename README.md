@@ -153,5 +153,13 @@ Sample Input File Format: [{"id":1, "description":"Read Docs Now", "entry":"2015
 
 [zeroSteiner](https://github.com/zeroSteiner)
 
+[legacy-code](https://github.com/legacy-code)
+
 
 Thanks to IanCal, GuyOnTheInterweb, elrac1, iambeard for the **super creative** suggestions in [reddit](http://www.reddit.com/r/coding/comments/2zgie7/dodo_task_management_for_developers/)
+
+
+
+### Breaking Changes
+
+* Changed default filename in 1.0 to DODOPIE from DODO in 0.99 for Macintosh

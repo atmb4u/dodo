@@ -11,7 +11,7 @@ from time import mktime
 
 
 DODO_FILE = os.path.join(os.getcwd(), 'DODOPIE')
-VERSION = "1.0"
+VERSION = "1.1"
 
 
 class TerminalColors(object):

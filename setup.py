@@ -65,7 +65,7 @@ scripts = ['dodo', 'dodo.py']
 
 setup_args = {
     'name': 'dodopie',
-    'version': '1.0',
+    'version': '1.1',
     'url': 'http://atmb4u.github.io/dodo',
     'description': 'Task Management for Hackers',
     'author': 'Anoop Thomas Mathew',

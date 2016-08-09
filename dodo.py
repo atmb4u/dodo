@@ -10,8 +10,8 @@ from datetime import datetime
 from time import mktime
 
 
-DODO_FILE = os.path.join(os.getcwd(), 'DODO')
-VERSION = "0.99"
+DODO_FILE = os.path.join(os.getcwd(), 'DODOPIE')
+VERSION = "1.0"
 
 
 class TerminalColors(object):
@@ -323,6 +323,7 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("operation", nargs='?', default=default_operation,
                         choices=[
+                            'init',
                             'accept',
                             'add',
                             'finish',
@@ -331,7 +332,11 @@ if __name__ == "__main__":
                             'propose',
                             'reject',
                             'remove',
-                            'workon'
+                            'workon',
+                            'c',
+                            'd',
+                            'import',
+                            'export'
                         ],
                         help="The operation to perform")
     parser.add_argument("quick_access", nargs='?', default='',

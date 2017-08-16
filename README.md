@@ -1,4 +1,7 @@
 ![DoDo](https://github.com/atmb4u/dodo/blob/master/logo.png?raw=true)
+
+---
+
 DoDo - Task Management for Hackers
 ----------------------------------
 

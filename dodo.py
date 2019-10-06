@@ -43,7 +43,7 @@ def pretty_date(date_string):
     timestamp = calendar.timegm((datetime.strptime(date_string, "%d-%m-%y %H:%M")).timetuple())
     date = datetime.fromtimestamp(timestamp)
     diff = datetime.now() - date
-    s = diff.seconds
+    s = round(diff.seconds, 2)
     if diff.days > 7 or diff.days < 0:
         return date.strftime('%d %b %y')
     elif diff.days == 1:
@@ -57,11 +57,11 @@ def pretty_date(date_string):
     elif s < 120:
         return '1 minute ago'
     elif s < 3600:
-        return '{} minutes ago'.format(s/60)
+        return '{} minutes ago'.format(round(s/60, 1))
     elif s < 7200:
         return '1 hour ago'
     else:
-        return '{} hours ago'.format(s/3600)
+        return '{} hours ago'.format(round(s/3600, 1))
 
 
 def parse_dodo(line):
